@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const double kBottomContainerHeight = 80.0;
 const Color kBottomContainerColor = Color(0xFFEB1555);
+const Color kOverlayColor = Color(0x29EB1555);
 const Color kActiveBoxColor = Color.fromRGBO(100, 100, 100, 0.6);
 const Color kInactiveBoxColor = Color.fromRGBO(100, 100, 100, 0.2);
 

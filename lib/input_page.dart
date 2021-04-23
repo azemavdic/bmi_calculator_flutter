@@ -14,6 +14,19 @@ enum Gender { male, female }
 class _InputPageState extends State<InputPage> {
   Gender selectedGender;
   int _heightValue = 185;
+  int _weightValue = 85;
+
+  void addWeight() {
+    setState(() {
+      _weightValue++;
+    });
+  }
+
+  void removeWeight() {
+    setState(() {
+      _weightValue--;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +103,9 @@ class _InputPageState extends State<InputPage> {
                       ),
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: kBottomContainerColor,
+                          thumbColor: kBottomContainerColor,
+                          overlayColor: kOverlayColor,
                           thumbShape:
                               RoundSliderThumbShape(enabledThumbRadius: 15),
                         ),
@@ -97,7 +113,6 @@ class _InputPageState extends State<InputPage> {
                           value: _heightValue.toDouble(),
                           max: maxHeight.toDouble(),
                           min: minHeight.toDouble(),
-                          activeColor: kBottomContainerColor,
                           onChanged: (double value) {
                             setState(() {
                               _heightValue = value.round();
@@ -113,8 +128,39 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: Row(
-              children: [
-                ReusableCard(colour: kActiveBoxColor),
+              children: <Widget>[
+                ReusableCard(
+                  colour: kActiveBoxColor,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'TEŽINA',
+                        style: kLabelTextStyle,
+                      ),
+                      Text(
+                        _weightValue.toString(),
+                        style: kNumberTextStyle,
+                      ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            AddRemoveBtn(
+                              icon: Icons.remove,
+                              onPress: removeWeight,
+                            ),
+                            AddRemoveBtn(
+                              icon: Icons.add,
+                              onPress: addWeight,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 ReusableCard(colour: kActiveBoxColor),
               ],
             ),
@@ -132,6 +178,24 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AddRemoveBtn extends StatelessWidget {
+  AddRemoveBtn({this.onPress, this.icon});
+  final Function onPress;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: onPress,
+      backgroundColor: Colors.grey.shade600,
+      child: Icon(
+        icon,
+        color: Colors.white,
       ),
     );
   }

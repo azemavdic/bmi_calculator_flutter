@@ -16,13 +16,16 @@ class CardChildContent extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        //Ikona muška ili ženska
         FaIcon(
           iconType,
           size: 80,
         ),
+        //Razmak između ikone i teksta
         SizedBox(
           height: 10,
         ),
+        //Tekst 'muško'/'žensko'
         Text(
           gender,
           style: kLabelTextStyle,
