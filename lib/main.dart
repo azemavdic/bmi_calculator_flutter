@@ -25,6 +25,7 @@ enum Gender { male, female }
 
 class _InputPageState extends State<InputPage> {
   Gender selectedGender;
+  int _heightValue = 185;
 
   @override
   Widget build(BuildContext context) {
@@ -74,16 +75,42 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: Row(
-              children: [
+              children: <Widget>[
                 ReusableCard(
                   colour: kActiveBoxColor,
                   cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: <Widget>[
                       Text(
                         'VISINA',
-                        style: labelTextStyle,
-                      )
+                        style: kLabelTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: <Widget>[
+                          Text(
+                            _heightValue.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Text(
+                            'cm',
+                            style: kLabelTextStyle,
+                          ),
+                        ],
+                      ),
+                      Slider(
+                        value: _heightValue.toDouble(),
+                        max: maxHeight.toDouble(),
+                        min: minHeight.toDouble(),
+                        activeColor: kBottomContainerColor,
+                        onChanged: (double value) {
+                          setState(() {
+                            _heightValue = value.round();
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
