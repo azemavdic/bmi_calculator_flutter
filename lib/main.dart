@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'card_child_content.dart';
-
-const bottomContainerHeight = 80.0;
-const bottomContainerColor = Color(0xFFEB1555);
-const activeBoxColor = Color.fromRGBO(100, 100, 100, 0.6);
-const inactiveBoxColor = Color.fromRGBO(100, 100, 100, 0.2);
+import 'constants.dart';
 
 void main() => runApp(BMICalculator());
 
@@ -50,8 +46,8 @@ class _InputPageState extends State<InputPage> {
                     });
                   },
                   colour: selectedGender == Gender.male
-                      ? activeBoxColor
-                      : inactiveBoxColor,
+                      ? kActiveBoxColor
+                      : kInactiveBoxColor,
                   cardChild: CardChildContent(
                     iconType: FontAwesomeIcons.mars,
                     gender: 'MUŠKO',
@@ -66,8 +62,8 @@ class _InputPageState extends State<InputPage> {
                     });
                   },
                   colour: selectedGender == Gender.female
-                      ? activeBoxColor
-                      : inactiveBoxColor,
+                      ? kActiveBoxColor
+                      : kInactiveBoxColor,
                   cardChild: CardChildContent(
                     iconType: FontAwesomeIcons.venus,
                     gender: 'ŽENSKO',
@@ -79,22 +75,33 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: [
-                ReusableCard(colour: activeBoxColor),
+                ReusableCard(
+                  colour: kActiveBoxColor,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'VISINA',
+                        style: labelTextStyle,
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ReusableCard(colour: activeBoxColor),
-                ReusableCard(colour: activeBoxColor),
+                ReusableCard(colour: kActiveBoxColor),
+                ReusableCard(colour: kActiveBoxColor),
               ],
             ),
           ),
           Container(
-            color: bottomContainerColor,
+            color: kBottomContainerColor,
             margin: EdgeInsets.only(top: 5),
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
             width: double.infinity,
             child: Center(
               child: Text(
