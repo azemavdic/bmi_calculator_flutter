@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'card_child_content.dart';
-
-const bottomContainerHeight = 80.0;
-const bottomContainerColor = Color(0xFFEB1555);
-const activeBoxColor = Color.fromRGBO(100, 100, 100, 0.6);
-const inactiveBoxColor = Color.fromRGBO(100, 100, 100, 0.2);
+import 'constants.dart';
 
 void main() => runApp(BMICalculator());
 
@@ -29,6 +25,7 @@ enum Gender { male, female }
 
 class _InputPageState extends State<InputPage> {
   Gender selectedGender;
+  int _heightValue = 185;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +47,8 @@ class _InputPageState extends State<InputPage> {
                     });
                   },
                   colour: selectedGender == Gender.male
-                      ? activeBoxColor
-                      : inactiveBoxColor,
+                      ? kActiveBoxColor
+                      : kInactiveBoxColor,
                   cardChild: CardChildContent(
                     iconType: FontAwesomeIcons.mars,
                     gender: 'MUŠKO',
@@ -66,8 +63,8 @@ class _InputPageState extends State<InputPage> {
                     });
                   },
                   colour: selectedGender == Gender.female
-                      ? activeBoxColor
-                      : inactiveBoxColor,
+                      ? kActiveBoxColor
+                      : kInactiveBoxColor,
                   cardChild: CardChildContent(
                     iconType: FontAwesomeIcons.venus,
                     gender: 'ŽENSKO',
@@ -78,23 +75,66 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: Row(
-              children: [
-                ReusableCard(colour: activeBoxColor),
+              children: <Widget>[
+                ReusableCard(
+                  colour: kActiveBoxColor,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'VISINA',
+                        style: kLabelTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: <Widget>[
+                          Text(
+                            _heightValue.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Text(
+                            'cm',
+                            style: kLabelTextStyle,
+                          ),
+                        ],
+                      ),
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 15),
+                        ),
+                        child: Slider(
+                          value: _heightValue.toDouble(),
+                          max: maxHeight.toDouble(),
+                          min: minHeight.toDouble(),
+                          activeColor: kBottomContainerColor,
+                          onChanged: (double value) {
+                            setState(() {
+                              _heightValue = value.round();
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ReusableCard(colour: activeBoxColor),
-                ReusableCard(colour: activeBoxColor),
+                ReusableCard(colour: kActiveBoxColor),
+                ReusableCard(colour: kActiveBoxColor),
               ],
             ),
           ),
           Container(
-            color: bottomContainerColor,
+            color: kBottomContainerColor,
             margin: EdgeInsets.only(top: 5),
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
             width: double.infinity,
             child: Center(
               child: Text(
