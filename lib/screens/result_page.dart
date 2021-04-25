@@ -1,8 +1,13 @@
 import 'package:bmi_calculator/constants.dart';
-import 'package:bmi_calculator/reusable_card.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
 import 'package:flutter/material.dart';
+import 'package:bmi_calculator/components/bottom_btn.dart';
 
 class ResultsPage extends StatelessWidget {
+  final String bmiResult;
+  final String textResult;
+  final String bodyResult;
+  ResultsPage({this.bmiResult, this.textResult, this.bodyResult});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,12 +35,27 @@ class ResultsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('data1'),
-                Text('bmi'),
-                Text('data3'),
+                Text(
+                  textResult,
+                  style: kResultTextStyle,
+                ),
+                Text(
+                  bmiResult,
+                  style: kBmiTextStyle,
+                ),
+                Text(
+                  bodyResult,
+                  textAlign: TextAlign.center,
+                  style: kBodyTextStyle,
+                ),
               ],
             ),
           ),
+          BottomButton(
+              text: 'PRERAČUNAJ',
+              onTap: () {
+                Navigator.pop(context);
+              })
         ],
       ),
     );

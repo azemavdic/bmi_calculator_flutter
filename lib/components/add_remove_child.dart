@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'add_remove_btn.dart';
-import 'constants.dart';
+import '../constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AddRemoveChild extends StatelessWidget {

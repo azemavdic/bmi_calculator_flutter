@@ -20,3 +20,16 @@ const kTitleStyle = TextStyle(fontSize: 40);
 
 const int maxHeight = 230;
 const int minHeight = 140;
+
+const kResultTextStyle = TextStyle(
+  color: Color(0xFF24D876),
+  fontSize: 22,
+  fontWeight: FontWeight.bold,
+);
+const kBmiTextStyle = TextStyle(
+  fontSize: 100,
+  fontWeight: FontWeight.bold,
+);
+const kBodyTextStyle = TextStyle(
+  fontSize: 20,
+);

@@ -1,10 +1,12 @@
+import 'package:bmi_calculator/components/calculator_brain.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'reusable_card.dart';
-import 'card_child_content.dart';
-import 'constants.dart';
-import 'add_remove_child.dart';
-import 'screens/result_page.dart';
+import '../components/reusable_card.dart';
+import '../components/card_child_content.dart';
+import '../constants.dart';
+import '../components/add_remove_child.dart';
+import 'result_page.dart';
+import '../components/bottom_btn.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -166,27 +168,23 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          GestureDetector(
+          BottomButton(
+            text: 'IZRAČUNAJ',
             onTap: () {
+              CalculatorBrain calc =
+                  CalculatorBrain(height: _heightValue, weight: _weightValue);
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => ResultsPage(),
+                  builder: (BuildContext context) => ResultsPage(
+                    bmiResult: calc.calculateBmi(),
+                    textResult: calc.getResult(),
+                    bodyResult: calc.getInterpretation(),
+                  ),
                 ),
               );
             },
-            child: Container(
-              color: kBottomContainerColor,
-              margin: EdgeInsets.only(top: 5),
-              height: kBottomContainerHeight,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  'IZRAČUNAJ',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
-            ),
           ),
         ],
       ),
