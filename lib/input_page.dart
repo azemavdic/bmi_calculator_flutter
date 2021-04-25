@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'card_child_content.dart';
 import 'constants.dart';
+import 'add_remove_child.dart';
+import 'screens/result_page.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class _InputPageState extends State<InputPage> {
   Gender selectedGender;
   int _heightValue = 185;
   int _weightValue = 85;
+  int _ageValue = 30;
 
   void addWeight() {
     setState(() {
@@ -25,6 +28,18 @@ class _InputPageState extends State<InputPage> {
   void removeWeight() {
     setState(() {
       _weightValue--;
+    });
+  }
+
+  void addAge() {
+    setState(() {
+      _ageValue++;
+    });
+  }
+
+  void removeAge() {
+    setState(() {
+      _ageValue--;
     });
   }
 
@@ -78,6 +93,7 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 ReusableCard(
+                  flex: 1,
                   colour: kActiveBoxColor,
                   cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -131,71 +147,48 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 ReusableCard(
                   colour: kActiveBoxColor,
-                  cardChild: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'TEŽINA',
-                        style: kLabelTextStyle,
-                      ),
-                      Text(
-                        _weightValue.toString(),
-                        style: kNumberTextStyle,
-                      ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            AddRemoveBtn(
-                              icon: Icons.remove,
-                              onPress: removeWeight,
-                            ),
-                            AddRemoveBtn(
-                              icon: Icons.add,
-                              onPress: addWeight,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  cardChild: AddRemoveChild(
+                    add: addWeight,
+                    remove: removeWeight,
+                    text: 'TEŽINA',
+                    value: _weightValue,
                   ),
                 ),
-                ReusableCard(colour: kActiveBoxColor),
+                ReusableCard(
+                  colour: kActiveBoxColor,
+                  cardChild: AddRemoveChild(
+                    add: addAge,
+                    remove: removeAge,
+                    text: 'GODINE',
+                    value: _ageValue,
+                  ),
+                ),
               ],
             ),
           ),
-          Container(
-            color: kBottomContainerColor,
-            margin: EdgeInsets.only(top: 5),
-            height: kBottomContainerHeight,
-            width: double.infinity,
-            child: Center(
-              child: Text(
-                'IZRAČUNAJ',
-                style: Theme.of(context).textTheme.headline6,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ResultsPage(),
+                ),
+              );
+            },
+            child: Container(
+              color: kBottomContainerColor,
+              margin: EdgeInsets.only(top: 5),
+              height: kBottomContainerHeight,
+              width: double.infinity,
+              child: Center(
+                child: Text(
+                  'IZRAČUNAJ',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class AddRemoveBtn extends StatelessWidget {
-  AddRemoveBtn({this.onPress, this.icon});
-  final Function onPress;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: onPress,
-      backgroundColor: Colors.grey.shade600,
-      child: Icon(
-        icon,
-        color: Colors.white,
       ),
     );
   }

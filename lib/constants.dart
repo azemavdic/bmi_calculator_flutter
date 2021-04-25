@@ -16,5 +16,7 @@ const kNumberTextStyle = TextStyle(
   fontWeight: FontWeight.w900,
 );
 
+const kTitleStyle = TextStyle(fontSize: 40);
+
 const int maxHeight = 230;
 const int minHeight = 140;
